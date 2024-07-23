@@ -26,6 +26,12 @@
       <input type="checkbox" value="janos" v-model="names" />
       <label>Janos</label>
     </div>
+
+    <label>Skills: </label>
+    <input type="text" v-model="tempSkill" @keyup="addSkill" />
+    <div v-for="skill in skills" class="pill">
+      {{ skill }}
+    </div>
   </form>
 
   <p>Email: {{ email }}</p>
@@ -33,6 +39,7 @@
   <p>Role: {{ role }}</p>
   <p>Terms accepted: {{ terms }}</p>
   <p>Names: {{ names }}</p>
+  <p>Skills: {{ skills }}</p>
 </template>
 
 <script>
@@ -44,7 +51,21 @@ export default {
       role: "",
       terms: false,
       names: [],
+      tempSkill: "",
+      skills: [],
     };
+  },
+
+  methods: {
+    addSkill(e) {
+      if (e.key === "Enter" && this.tempSkill) {
+        if (!this.skills.includes(this.tempSkill)) {
+          this.skills.push(this.tempSkill);
+        }
+
+        this.tempSkill = "";
+      }
+    },
   },
 };
 </script>
